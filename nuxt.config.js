@@ -49,7 +49,20 @@ export default {
     ['nuxt-supabase', {
       supabaseUrl: 'https://tkgjucxcwcwlysvhdyil.supabase.co',
       supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyNDg2NDI1NywiZXhwIjoxOTQwNDQwMjU3fQ.Jlw18-eKMJpGobT__SrDDiOBlDxop34Ar9RBXwd3Gsw'
-    }]
+    }],
+    [
+      'nuxt-fontawesome', {
+        options: {
+          shouldPurge: false
+        },
+        imports: [
+          {
+            set: '@fortawesome/free-solid-svg-icons',
+            icons: ['fas']
+          }
+        ]
+      }
+    ],
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

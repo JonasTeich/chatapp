@@ -1,7 +1,14 @@
 <template>
-  <NuxtLink to="/chat/">Zum Chat</NuxtLink>
+  <div>
+    <UserHeader></UserHeader>
+    <UserList></UserList>
+    <!-- <NuxtLink to="/chat/">Zum Chat</NuxtLink> -->
+  </div>
 </template>
 
 <script>
-export default {}
+export default {
+  middleware: 'authenticated',
+  layout: 'default'
+}
 </script>
