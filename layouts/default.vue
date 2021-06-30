@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen pt-10">
+  <div class="h-screen overflow-hidden p-10">
     <Container>
         <Nuxt />
     </Container>

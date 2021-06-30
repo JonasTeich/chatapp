@@ -1,10 +1,12 @@
 <template>
   <div>
-    <ListItem
+    <NuxtLink
       v-for="user in filteredUsers"
       :key="user.id"
-      :user="user"
-    />
+      :to="'/chat/' + user.id"
+    >
+      <ListItem :user="user"/>
+    </NuxtLink>
   </div>
 </template>
 

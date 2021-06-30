@@ -1,5 +1,9 @@
 <template>
-    <NuxtLink to="/users">Zurück</NuxtLink>
+  <div class="w-full h-full flex flex-col">
+    <ChatHeader class="flex-initial" />
+    <Chat class="overflow-auto flex-1" />
+    <ChatInput class="flex-initial "/>
+  </div>
 </template>
 
 <script>

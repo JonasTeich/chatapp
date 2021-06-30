@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-5xl mx-auto rounded-t-3xl bg-white shadow-lg overflow-hidden" style="height: calc(100vh - 2.5rem);">
+  <div class="max-w-5xl mx-auto h-full rounded-3xl bg-white shadow-lg overflow-hidden">
     <slot />
   </div>
 </template>
