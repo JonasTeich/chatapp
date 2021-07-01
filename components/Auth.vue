@@ -1,7 +1,7 @@
 <template>
   <div class="h-full w-full flex justify-center items-center relative">
     <NuxtLink to="/" class="absolute left-10 sm:top-10 top-6"><font-awesome-icon :icon="['fas', 'arrow-left']" class="text-gray-700 text-3xl cursor-pointer"/></NuxtLink>
-    <button class="absolute right-10 sm:top-10 top-6 px-3 py-2 rounded-3xl bg-gray-700 text-white" @click="signOut">Sign out</button>
+    <button v-if="isLoggedIn" class="absolute right-10 sm:top-10 top-6 px-3 py-2 rounded-3xl bg-gray-700 text-white" @click="signOut">Sign out</button>
     <div class="sm:flex sm:w-min w-full sm:border sm:rounded-3xl p-10">
       <div class="flex flex-col sm:pr-10 sm:pb-0 pb-10 sm:border-b-0 border-b-2 sm:border-r-2">
         <h3 class="font-black text-3xl pb-4 text-gray-700 sm:ml-0 ml-10">Sign Up</h3>
@@ -56,6 +56,11 @@ export default {
     emailSignIn: '',
     passwordSignIn: ''
   }),
+  computed: {
+    isLoggedIn () {
+      return this.$supabase.auth.user()
+    }
+  },
   methods: {
     async signUp () {
       await this.$supabase.auth.signUp({

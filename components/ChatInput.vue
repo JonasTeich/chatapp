@@ -21,14 +21,14 @@ export default {
   }),
   methods: {
     async sendMessage () {
-      if (this.message === '') {
+      if (this.message.trim() === '') {
         return
       }
       const { error } = await this.$supabase
         .from('messages')
         .insert([
           {
-            message: this.message,
+            message: this.message.trim(),
             user_id: this.$supabase.auth.user().id,
             receiver_id: this.$route.params.userid
           }
