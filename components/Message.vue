@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper flex">
     <div v-if="user.id === $supabase.auth.user().id" class="flex-1"></div>
-    <div class="message mb-10 bg-gray-500 p-3 rounded-2xl break-all flex-initial">
+    <div class="message mt-6 bg-gray-500 p-3 rounded-2xl break-all flex-initial">
       <p class="text-blue-300 text-left mb-2">
         {{ user.username }}
       </p>

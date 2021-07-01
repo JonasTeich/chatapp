@@ -5,7 +5,7 @@
       :key="user.id"
       :to="'/chat/' + user.id"
     >
-      <ListItem :user="user"/>
+      <ListItem :user="user" :lastOnline="user.last_online" />
     </NuxtLink>
   </div>
 </template>
@@ -51,7 +51,7 @@ export default {
       const index = this.users.findIndex(element => element.id === user.id)
       console.log(index)
       this.users[index] = user
-      this.$forceUpdate()
+      this.setTimeout(this.$forceUpdate)
     }
   }
 }

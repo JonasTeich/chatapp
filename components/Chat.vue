@@ -1,6 +1,6 @@
 <template>
-  <div v-if="isReady" class="w-full p-6 flex justify-end flex-col">
-    <div class="w-full overflow-y-auto my-4 example">
+  <div v-if="isReady" class="w-full px-6 flex justify-end flex-col">
+    <div class="w-full overflow-y-auto example">
       <Message
         v-for="message in messages"
         :key="message.id"
@@ -51,6 +51,11 @@ export default {
       .subscribe()
   },
   methods: {
+    beforeDestroy () {
+      if (this.$supabase.removeSubscribtion) {
+        this.$supabase.removeSubscribtion(this.subscription)
+      }
+    },
     async getUser () {
       const { data } = await this.$supabase
         .from('users')
@@ -69,7 +74,7 @@ export default {
       const { data } = await this.$supabase
         .from('messages')
         .select()
-        .or(`receiver_id.eq.${this.$supabase.auth.user().id},receiver_id.eq.${this.$route.params.userid}`)
+        .or(`and(receiver_id.eq.${this.$supabase.auth.user().id},user_id.eq.${this.$route.params.userid}),and(receiver_id.eq.${this.$route.params.userid},user_id.eq.${this.$supabase.auth.user().id})`)
       this.messages = data
     },
     getUserByUserId (userid) {

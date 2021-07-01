@@ -5,7 +5,3 @@
     <ChatInput class="flex-initial "/>
   </div>
 </template>
-
-<script>
-export default {}
-</script>

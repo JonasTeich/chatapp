@@ -2,7 +2,6 @@
   <div>
     <UserHeader></UserHeader>
     <UserList></UserList>
-    <!-- <NuxtLink to="/chat/">Zum Chat</NuxtLink> -->
   </div>
 </template>
 

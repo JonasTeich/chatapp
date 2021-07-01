@@ -47,8 +47,8 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     ['nuxt-supabase', {
-      supabaseUrl: 'https://tkgjucxcwcwlysvhdyil.supabase.co',
-      supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyNDg2NDI1NywiZXhwIjoxOTQwNDQwMjU3fQ.Jlw18-eKMJpGobT__SrDDiOBlDxop34Ar9RBXwd3Gsw'
+      supabaseUrl: 'https://yrmcjznowjdhnyrjfbog.supabase.co',
+      supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyNTEyMjY3NywiZXhwIjoxOTQwNjk4Njc3fQ.YFX_O7DffYUodZEZQn0zT5fpfsokBDf_cHsfX9azEBc'
     }],
     [
       'nuxt-fontawesome', {
@@ -71,7 +71,11 @@ export default {
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
-      lang: 'en'
+      lang: 'de',
+      background_color: '#374151'
+    },
+    meta: {
+      theme_color: '#374151'
     }
   },
 
