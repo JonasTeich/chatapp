@@ -1,7 +1,7 @@
 <template>
   <div class="h-full flex flex-col">
     <UserHeader v-model="query"></UserHeader>
-    <UserList :searchedUser="query" class="overflow-auto flex-1"></UserList>
+    <UserList :searchedUser="query" class="overflow-auto flex-1 p-4"></UserList>
   </div>
 </template>
 

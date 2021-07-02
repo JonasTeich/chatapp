@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div v-if="!searchedUser.length" class="w-full"><p class="w-full text-gray-700 text-center">Suche nach einer Person mit der du chatten willst</p></div>
+  <div class="p-4">
+    <div v-if="!searchedUser.length" class="w-full"><p class="w-full text-gray-700 text-center breake-normal">Suche nach einer Person mit der du chatten willst</p></div>
     <div v-if="searchedUser.length" class="example">
       <NuxtLink
         v-for="user in users"

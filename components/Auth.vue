@@ -3,7 +3,7 @@
     <NuxtLink to="/" class="absolute left-10 sm:top-10 top-6"><font-awesome-icon :icon="['fas', 'arrow-left']" class="text-gray-700 text-3xl cursor-pointer"/></NuxtLink>
     <div class="sm:flex sm:w-min w-full sm:border sm:rounded-3xl p-10">
       <div class="flex flex-col sm:pr-10 sm:pb-0 pb-10 sm:border-b-0 border-b-2 sm:border-r-2">
-        <h3 class="font-black text-3xl pb-4 text-gray-700 sm:ml-0 ml-10">Sign Up</h3>
+        <h3 class="font-black text-3xl text-center pb-4 text-gray-700">Sign Up</h3>
         <label class="flex flex-col">
           E-mail
           <input
@@ -31,7 +31,7 @@
         <button @click="signUp">Sign Up</button>
       </div>
       <form action="#" class="flex flex-col sm:pt-0 pt-10 sm:pl-10" @submit.prevent="signIn">
-        <h3 class="font-black text-3xl pb-4 text-gray-700">Sign In</h3>
+        <h3 class="font-black text-3xl text-center pb-4 text-gray-700">Sign In</h3>
         <label class="flex flex-col">
           E-mail
           <input
