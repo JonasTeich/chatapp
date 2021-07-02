@@ -1,12 +1,15 @@
 <template>
-  <div class="example">
-    <NuxtLink
-      v-for="user in filteredUsers"
-      :key="user.id"
-      :to="'/chat/' + user.id"
-    >
-      <ListItem :user="user" :lastOnline="user.last_online" />
-    </NuxtLink>
+  <div>
+    <div v-if="!searchedUser.length" class="w-full"><p class="w-full text-gray-700 text-center">Suche nach einer Person mit der du chatten willst</p></div>
+    <div v-if="searchedUser.length" class="example">
+      <NuxtLink
+        v-for="user in users"
+        :key="user.id"
+        :to="'/chat/' + user.id"
+      >
+        <ListItem :user="user" :lastOnline="user.last_online" />
+      </NuxtLink>
+    </div>
   </div>
 </template>
 
@@ -17,29 +20,50 @@ export default {
   },
   data: () => ({
     users: [],
-    subscription: null
+    subscription: null,
+    loading: false
   }),
-  computed: {
-    filteredUsers () {
-      return this.users
-        .filter(user => user.id !== this.$supabase.auth.user().id)
-        .filter(user => user.username.includes(this.searchedUser.toLowerCase()))
+  watch: {
+    searchedUser () {
+      if (this.searchedUser.length) {
+        this.getUsers()
+      } else {
+        this.users = []
+      }
     }
   },
   created () {
-    this.getUsers()
-    this.subscribeToUsers()
+    setInterval(this.getUsers, 5000)
   },
   beforeDestroy () {
     this.$supabase.removeSubscription(this.subscription)
   },
   methods: {
     async getUsers () {
+      if (!this.searchedUser.length) {
+        return
+      }
+      this.loading = true
       const { data } = await this.$supabase
         .from('users')
         .select()
+        .like('username', `%${this.searchedUser}%`)
+        .not('id', 'eq', this.$supabase.auth.user().id)
       this.users = data
+      this.loading = false
     },
+    // subscribe () {
+    //   if (this.subscription) {
+    //     this.$supabase.removeSubscription(this.subscription)
+    //   }
+    //   this.subscription = this.$supabase
+    //     .from('users')
+    //     .on('*', (payload) => {
+    //     })
+    //     .subscribe(this.searchedUser)
+    //     .like('username', `%${this.searchedUser}%`)
+    //     .not('id', 'eq', this.$supabase.auth.user().id)
+    // },
     subscribeToUsers () {
       this.subscription = this.$supabase
         .from('users')
@@ -50,9 +74,7 @@ export default {
     },
     updateStatus (user) {
       const index = this.users.findIndex(element => element.id === user.id)
-      console.log(index)
       this.users[index] = user
-      this.setTimeout(this.$forceUpdate)
     }
   }
 }

@@ -12,6 +12,14 @@
             class="outline-none rounded-3xl p-2 bg-gray-100"
           >
         </label>
+        <label class="flex flex-col">
+          Benutzername
+          <input
+            type="text"
+            v-model="usernameSignUp"
+            class="outline-none rounded-3xl p-2 bg-gray-100"
+          >
+        </label>
         <label class="flex flex-col mb-5">
           Passwort
           <input
@@ -53,7 +61,9 @@ export default {
     emailSignUp: '',
     passwordSignUp: '',
     emailSignIn: '',
-    passwordSignIn: ''
+    passwordSignIn: '',
+    usernameSignUp: '',
+    user: ''
   }),
   computed: {
     isLoggedIn () {
@@ -66,10 +76,14 @@ export default {
         email: this.emailSignUp,
         password: this.passwordSignUp
       })
+      await this.getUser()
+      await this.$supabase
+        .from('users')
+        .update({ username: this.usernameSignUp })
+        .match(this.user)
       this.signIn(this.emailSignUp, this.passwordSignUp)
     },
     async signIn (email, password) {
-      console.log(email)
       const { user } = await this.$supabase.auth.signIn({
         email: (typeof email === 'string') ? email : this.emailSignIn,
         password: password || this.passwordSignIn
@@ -80,6 +94,13 @@ export default {
     },
     async signOut () {
       await this.$supabase.auth.signOut()
+    },
+    async getUser () {
+      const { data } = await this.$supabase
+        .from('users')
+        .select()
+        .filter('id', 'eq', this.$supabase.auth.user().id)
+      this.user = data[0]
     }
   }
 }

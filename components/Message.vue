@@ -23,9 +23,6 @@ export default {
   props: {
     user: Object,
     message: Object
-  },
-  created () {
-    console.log(this.user)
   }
 }
 </script>

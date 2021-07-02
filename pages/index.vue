@@ -1,6 +1,6 @@
 <template>
   <div class="h-full flex flex-col relative">
-    <h1 class="w-full text-center font-black sm:text-6xl text-4xl pt-10 text-gray-700">Willkommen</h1>
+    <h1 class="w-full text-center font-black sm:text-6xl text-4xl pt-10 text-gray-700">Willkommen {{user.username}}</h1>
     <div class="flex justify-center items-center h-full">
       <div class="flex flex-col w-80 px-6">
         <NuxtLink v-if="!isLoggedIn" to="/auth">
@@ -10,6 +10,7 @@
           <button class="bg-green-400 hover:bg-green-300 py-6 w-full rounded-3xl text-white">Users</button>
         </NuxtLink>
         <p v-if="isLoggedIn" class="text-center text-gray-700 hover:bg-gray-100 p-4 cursor-pointer border mt-4 rounded-3xl" @click="signOut">Sign Out</p>
+        <!-- <p v-if="isLoggedIn" class="text-center text-gray-700 hover:bg-gray-100 p-4 cursor-pointer border mt-4 rounded-3xl" @click="signOut">Change Username</p> -->
       </div>
     </div>
   </div>
@@ -18,8 +19,12 @@
 <script>
 export default {
   data: () => ({
-    i: 0
+    i: 0,
+    user: {}
   }),
+  created () {
+    this.getUser()
+  },
   computed: {
     isLoggedIn () {
       this.i // eslint-disable-line
@@ -30,6 +35,13 @@ export default {
     async signOut () {
       await this.$supabase.auth.signOut()
       this.i++
+    },
+    async getUser () {
+      const { data } = await this.$supabase
+        .from('users')
+        .select()
+        .filter('id', 'eq', this.$supabase.auth.user().id)
+      this.user = data[0]
     }
   }
 }
