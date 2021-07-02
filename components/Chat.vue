@@ -1,6 +1,6 @@
 <template>
-  <div v-if="isReady" class="w-full px-6 flex justify-end flex-col">
-    <div class="w-full overflow-y-auto example">
+  <div class="w-full px-6 flex justify-end flex-col">
+    <div v-if="isReady" class="w-full overflow-y-auto example">
       <Message
         v-for="message in messages"
         :key="message.id"

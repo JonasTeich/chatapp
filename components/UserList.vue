@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="example">
     <NuxtLink
       v-for="user in filteredUsers"
       :key="user.id"
@@ -12,13 +12,18 @@
 
 <script>
 export default {
+  props: {
+    searchedUser: String
+  },
   data: () => ({
     users: [],
     subscription: null
   }),
   computed: {
     filteredUsers () {
-      return this.users.filter(user => user.id !== this.$supabase.auth.user().id)
+      return this.users
+        .filter(user => user.id !== this.$supabase.auth.user().id)
+        .filter(user => user.username.includes(this.searchedUser.toLowerCase()))
     }
   },
   created () {
@@ -26,9 +31,7 @@ export default {
     this.subscribeToUsers()
   },
   beforeDestroy () {
-    if (this.$supabase.removeSubscribtion) {
-      this.$supabase.removeSubscribtion(this.subscription)
-    }
+    this.$supabase.removeSubscription(this.subscription)
   },
   methods: {
     async getUsers () {
@@ -36,13 +39,11 @@ export default {
         .from('users')
         .select()
       this.users = data
-      console.log(this.users)
     },
     subscribeToUsers () {
       this.subscription = this.$supabase
         .from('users')
         .on('UPDATE', (payload) => {
-          console.log('Change received!', payload)
           this.updateStatus(payload.new)
         })
         .subscribe()
@@ -56,3 +57,14 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.example {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.example::-webkit-scrollbar {
+  display: none;
+}
+</style>
