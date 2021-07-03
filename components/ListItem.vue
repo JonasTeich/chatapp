@@ -1,5 +1,5 @@
 <template>
-  <div class="flex bg-gray-100 mx-6 h-20 items-center rounded-3xl p-4 mb-4 cursor-pointer justify-between hover:bg-gray-200">
+  <div class="flex bg-gray-100 h-20 items-center rounded-3xl p-4 mb-4 cursor-pointer justify-between hover:bg-gray-200">
     <div class="rounded-full flex-initial bg-blue-300 h-12 w-12 flex items-center justify-center text-white mr-4">{{ user.username.charAt(0).toUpperCase() }}</div>
     <p class="truncate flex-1">{{ user.username }}</p>
     <div

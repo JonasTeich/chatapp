@@ -18,10 +18,10 @@
           <button class="bg-blue-400 hover:bg-blue-300 py-6 w-full mb-4 rounded-3xl text-white">Sign In / Sign Up</button>
         </NuxtLink>
         <NuxtLink v-if="isLoggedIn" to="/users">
-          <button class="bg-green-400 hover:bg-green-300 py-6 w-full rounded-3xl text-white">Users</button>
+          <button class="bg-green-400 hover:bg-green-300 py-6 w-full rounded-3xl text-white">Benutzer</button>
         </NuxtLink>
-        <p v-if="isLoggedIn" class="text-center text-gray-700 hover:bg-gray-100 p-4 cursor-pointer border mt-4 rounded-3xl" @click="signOut">Sign Out</p>
-        <p v-if="isLoggedIn" class="text-center text-gray-700 hover:bg-gray-100 p-4 cursor-pointer border mt-4 rounded-3xl" @click="changeUsername">Change Username</p>
+        <p v-if="isLoggedIn" class="text-center text-gray-700 hover:bg-gray-100 p-4 cursor-pointer border mt-4 rounded-3xl" @click="signOut">Abmelden</p>
+        <p v-if="isLoggedIn" class="text-center text-gray-700 hover:bg-gray-100 p-4 cursor-pointer border mt-4 rounded-3xl" @click="changeUsername">Benutzername ändern</p>
       </div>
     </div>
   </div>
@@ -75,7 +75,7 @@ export default {
         .update({ username: this.currentName })
         .match(this.user)
       this.isChangingUsername = false
-      this.$forceUpdate()
+      this.user.username = this.currentName
     }
   }
 }

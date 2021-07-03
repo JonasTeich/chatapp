@@ -1,6 +1,7 @@
 <template>
   <div class="p-4">
     <div v-if="!searchedUser.length" class="w-full"><p class="w-full text-gray-700 text-center breake-normal">Suche nach einer Person mit der du chatten willst</p></div>
+    <div v-if="!users.length && searchedUser.length" class="w-full"><p class="w-full text-gray-700 text-center breake-normal">Keine Suchergebnisse</p></div>
     <div v-if="searchedUser.length" class="example">
       <NuxtLink
         v-for="user in users"
@@ -47,7 +48,7 @@ export default {
       const { data } = await this.$supabase
         .from('users')
         .select()
-        .like('username', `%${this.searchedUser}%`)
+        .ilike('username', `%${this.searchedUser}%`)
         .not('id', 'eq', this.$supabase.auth.user().id)
       this.users = data
       this.loading = false
