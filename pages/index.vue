@@ -4,7 +4,13 @@
       <div class="p-6 rounded-3xl bg-gray-100 flex flex-col justify-center items-center">
         <h2 class="font-black text-gray-700 text-3xl mb-6">{{user.username}}</h2>
         <p v-if="errorMessage" class="text-red-600 mb-2">{{errorMessage}}</p>
-        <input @keypress.enter="saveUsername" class="p-2 rounded-3xl mb-6 outline-none" v-model="currentName" type="text">
+        <input
+          @keypress.enter="saveUsername"
+          ref="input"
+          class="p-2 rounded-3xl mb-6 outline-none"
+          v-model="currentName"
+          type="text"
+        >
         <div class="flex">
           <p @click="isChangingUsername = false" class="cursor-pointer text-gray-700 p-2">Abbrechen</p>
           <button @click="saveUsername" class="p-2 text-white rounded-3xl bg-green-400">Speichern</button>
@@ -64,6 +70,7 @@ export default {
     },
     changeUsername () {
       this.isChangingUsername = true
+      this.$nextTick(this.focusInput)
     },
     async saveUsername () {
       if (this.currentName.trim().length === 0) {
@@ -76,6 +83,9 @@ export default {
         .match(this.user)
       this.isChangingUsername = false
       this.user.username = this.currentName
+    },
+    focusInput () {
+      this.$refs.input.focus()
     }
   }
 }

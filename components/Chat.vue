@@ -40,22 +40,14 @@ export default {
     this.getUser()
     this.getMe()
     this.getMessages()
-    this.$supabase
-      .from('messages')
-      .on('*', (payload) => {
-        if (payload.new.receiver_id === this.$route.params.userid || payload.new.user_id === this.$route.params.userid) {
-          this.messages.push(payload.new)
-          this.scrollToBottom()
-        }
-      })
-      .subscribe()
+    this.subscribeToMessages()
+  },
+  beforeDestroy () {
+    if (this.$supabase.removeSubscription) {
+      this.$supabase.removeSubscription(this.subscription)
+    }
   },
   methods: {
-    beforeDestroy () {
-      if (this.$supabase.removeSubscribtion) {
-        this.$supabase.removeSubscribtion(this.subscription)
-      }
-    },
     async getUser () {
       const { data } = await this.$supabase
         .from('users')
@@ -88,6 +80,17 @@ export default {
       this.$nextTick(() => {
         this.$el.children[0].scrollTop = this.$el.children[0].scrollHeight
       })
+    },
+    subscribeToMessages () {
+      this.$supabase
+        .from('messages')
+        .on('*', (payload) => {
+          if (payload.new.receiver_id === this.$route.params.userid || payload.new.user_id === this.$route.params.userid) {
+            this.messages.push(payload.new)
+            this.scrollToBottom()
+          }
+        })
+        .subscribe()
     }
   }
 }

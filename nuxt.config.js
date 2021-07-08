@@ -75,7 +75,7 @@ export default {
       background_color: '#374151'
     },
     meta: {
-      theme_color: '#374151'
+      theme_color: '#E5E7EB'
     }
   },
 

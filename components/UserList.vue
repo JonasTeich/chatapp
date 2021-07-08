@@ -1,6 +1,7 @@
 <template>
-  <div class="p-4">
-    <div v-if="!searchedUser.length" class="w-full"><p class="w-full text-gray-700 text-center breake-normal">Suche nach einer Person mit der du chatten willst</p></div>
+  <div class="p-6 example">
+    <LastChats v-if="!searchedUser.length"></LastChats>
+    <!-- <div v-if="!searchedUser.length" class="w-full"><p class="w-full text-gray-700 text-center breake-normal">Suche nach einer Person mit der du chatten willst</p></div> -->
     <div v-if="!users.length && searchedUser.length" class="w-full"><p class="w-full text-gray-700 text-center breake-normal">Keine Suchergebnisse</p></div>
     <div v-if="searchedUser.length" class="example">
       <NuxtLink
@@ -8,7 +9,7 @@
         :key="user.id"
         :to="'/chat/' + user.id"
       >
-        <ListItem :user="user" :lastOnline="user.last_online" />
+        <ListItem :user="user" />
       </NuxtLink>
     </div>
   </div>
@@ -53,18 +54,6 @@ export default {
       this.users = data
       this.loading = false
     },
-    // subscribe () {
-    //   if (this.subscription) {
-    //     this.$supabase.removeSubscription(this.subscription)
-    //   }
-    //   this.subscription = this.$supabase
-    //     .from('users')
-    //     .on('*', (payload) => {
-    //     })
-    //     .subscribe(this.searchedUser)
-    //     .like('username', `%${this.searchedUser}%`)
-    //     .not('id', 'eq', this.$supabase.auth.user().id)
-    // },
     subscribeToUsers () {
       this.subscription = this.$supabase
         .from('users')

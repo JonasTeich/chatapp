@@ -4,7 +4,9 @@
       type="text"
       class="w-auto rounded-3xl bg-gray-200 h-9 outline-none p-3 flex-1"
       v-model="message"
+      ref="input"
       @keypress.enter="sendMessage"
+      @focus="$emit('focus')"
     >
     <font-awesome-icon
       :icon="['fas', 'paper-plane']"
@@ -36,6 +38,7 @@ export default {
       if (!error) {
         this.message = ''
       }
+      this.$refs.input.focus()
     }
   }
 }
